@@ -1,0 +1,70 @@
+---
+title: "wk1_day5_quarto_stuff"
+author: "Joshua Paul Cohen"
+format: html
+execute: 
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+# were gonna filter out all the warnings and shit from the quarto render
+#| warning: false
+#| message: false
+
+# load libraries
+library(tidyverse)
+library(ggplot2)
+
+```
+
+## running `head()`, `tail()`, `dim()`, and `dplyr::insert_table` on table "starwars"
+
+```{r}
+#summry stats
+head(starwars, n = 10)
+tail(starwars)
+dim(starwars)
+dplyr::starwars
+```
+
+## now?
+### create scatterplot of character `mass` on y axis and `height` on x
+### update the color of the points so that color changes based on the value of `mass`
+```{r}
+# turning off warnings and code output
+#| echo: false
+
+# ploting
+ggplot(data = starwars, aes(x = height, y = mass, color = mass, size = 3)) + geom_point() + labs(x = "Height (cm)", y = "Mass (kg)", title = "mewhen")
+```
+
+## next
+### make histogram of character heights
+### update the fill color `fill` to purple and the outside border line `color` of each histogram bin to orange
+### update axis labels
+### update eyour code chunck options so that only your code and output graph appear in the rendered doc
+
+```{r}
+#| fig-cap: "figure caption here"
+#| fig-alt: "alt caption"
+# alt captions are an accessability feature
+ggplot(data = starwars, aes(x = height)) + geom_histogram(fill = "purple", color = "orange") + labs(x = "height cm", y = "frequency")
+```
+
+```{r}
+# getting the mean of starwars height
+# but this one should fetch an NA
+# this is because there's NA's in the dataset
+mean(starwars$height)
+# instead we....
+# we added round to round output
+sw_height_mean <- round(x = mean(starwars$height, na.rm = TRUE), digits = 3)
+
+```
+
+mean height starwars characters is `r sw_height_mean`
+
+phrase things "r variable" but in `backslashes` to output a variable in quarto
